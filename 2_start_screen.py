@@ -8,7 +8,7 @@ def display_start_screen():
 
 # 초기화
 pygame.init()
-screen_width = 1280 # 가로 크기
+screen_width = 1200 # 가로 크기
 screen_height = 780 # 세로 크기
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Memory Game")
