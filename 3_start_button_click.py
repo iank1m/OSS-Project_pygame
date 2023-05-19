@@ -18,14 +18,22 @@ def check_buttons(pos):
 
 # 초기화
 pygame.init()
-screen_width = 1200 # 가로 크기
-screen_height = 780 # 세로 크기
+screen_width = 1280 # 가로 크기
+screen_height = 720 # 세로 크기
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Memory Game")
 
+# 배경이미지 불러오기
+background = pygame.image.load("game_background.png")
+
+# 새로운 화면을 위한 Surface 객체 생성
+sub_screen_width = 865
+sub_screen_height = 520
+sub_screen = pygame.Surface((sub_screen_width, sub_screen_height))
+
 # 시작 버튼
 start_button = pygame.Rect(0, 0, 120, 120)
-start_button.center = (120, screen_height - 120)
+start_button.center = (450, 320)
 
 # 색깔
 BLACK = (0, 0, 0) # RGB 
@@ -46,9 +54,9 @@ while running:
         elif event.type == pygame.MOUSEBUTTONUP: # 사용자가 마우스를 클릭했을때
             click_pos = pygame.mouse.get_pos()
             print(click_pos)
+    screen.blit(background, (0, 0))  # 배경 그리기
+    screen.blit(sub_screen, (25, 40))  # 새로운 화면을 (30, 30) 위치에 그리기
 
-    # 화면 전체를 까맣게 칠함
-    screen.fill(BLACK)
 
     if start: 
         display_game_screen() # 게임 화면 표시
