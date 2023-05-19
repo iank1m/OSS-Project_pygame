@@ -22,7 +22,7 @@ sub_screen = pygame.Surface((sub_screen_width, sub_screen_height))
 
 # 시작 버튼
 start_button = pygame.Rect(0, 0, 120, 120)
-start_button.center = (120, screen_height - 120)
+start_button.center = (450, 320)
 
 # 색깔
 BLACK = (0, 0, 0) # RGB 
