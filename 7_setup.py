@@ -18,12 +18,12 @@ def setup(level):
 # 숫자 섞기 (이 프로젝트에서 가장 중요)
 def shuffle_grid(number_count):
     rows = 5
-    columns = 9
+    columns = 8
 
-    cell_size = 130 # 각 Grid cell 별 가로, 세로 크기
-    button_size = 110 # Grid cell 내에 실제로 그려질 버튼 크기
-    screen_left_margin = 55 # 전체 스크린 왼쪽 여백
-    screen_top_margin = 20 # 전체 스크린 위쪽 여백
+    cell_size = 95 # 각 Grid cell 별 가로, 세로 크기
+    button_size = 90 # Grid cell 내에 실제로 그려질 버튼 크기
+    screen_left_margin = 60 # 전체 스크린 왼쪽 여백
+    screen_top_margin = 40 # 전체 스크린 위쪽 여백
 
     # [[0, 0, 0, 0, 0, 0, 0, 5, 0],
     #  [0, 0, 0, 0, 0, 4, 0, 0, 0],
@@ -120,28 +120,37 @@ def game_over():
     global running
     running = False
     
-    msg = game_font.render(f"Your level is {curr_level}", True, WHITE)
-    msg_rect = msg.get_rect(center=(screen_width/2, screen_height/2))
+    msg = game_font.render(f"Your level is {curr_level}", True, BLUE)
+    msg_rect = msg.get_rect(center=(screen_width/2 - 160, screen_height/2 - 60))
 
-    screen.fill(BLACK)
     screen.blit(msg, msg_rect)
 
 # 초기화
 pygame.init()
-screen_width = 1200 # 가로 크기
-screen_height = 780 # 세로 크기
+screen_width = 1280 # 가로 크기
+screen_height = 720 # 세로 크기
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Memory Game")
 game_font = pygame.font.Font(None, 120) # 폰트 정의
 
+# 배경이미지 불러오기
+background = pygame.image.load("game_background.png")
+
+# 새로운 화면을 위한 Surface 객체 생성
+sub_screen_width = 865
+sub_screen_height = 520
+sub_screen = pygame.Surface((sub_screen_width, sub_screen_height))
+
+
 # 시작 버튼
 start_button = pygame.Rect(0, 0, 120, 120)
-start_button.center = (120, screen_height - 120)
+start_button.center = (440, 320)
 
 # 색깔
 BLACK = (0, 0, 0) # RGB 
 WHITE = (255, 255, 255)
 GRAY = (50, 50, 50)
+BLUE = (130, 140, 240)
 
 number_buttons = [] # 플레이어가 눌러야 하는 버튼들
 curr_level = 1 # 현재 레벨
@@ -168,9 +177,9 @@ while running:
         elif event.type == pygame.MOUSEBUTTONUP: # 사용자가 마우스를 클릭했을때
             click_pos = pygame.mouse.get_pos()
             print(click_pos)
-
-    # 화면 전체를 까맣게 칠함
-    screen.fill(BLACK)
+    screen.blit(background, (0, 0))  # 배경 그리기
+    screen.blit(sub_screen, (25, 40))  # 새로운 화면을 (30, 30) 위치에 그리기
+  
 
     if start: 
         display_game_screen() # 게임 화면 표시
