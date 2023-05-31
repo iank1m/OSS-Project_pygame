@@ -82,8 +82,39 @@ def display_game_screen():
             cell_text = game_font.render(str(idx), True, WHITE)
             text_rect = cell_text.get_rect(center=rect.center)
             screen.blit(cell_text, text_rect)
+ 
+# 점수 화면에 기록
+score = 0
+stagescore = 0
+stagestair = 1000
+def draw_score():
+    # score 기록
+    font_01 = pygame.font.SysFont("FixedSsy", 70, True, False)
+    text_score = font_01.render("Score: " + str(score), True, BLUE)
+    text_score_rect = text_score.get_rect(center=(screen_width/2 - 160, screen_height/2 - 30))
+    screen.blit(text_score, text_score_rect)
+    # level 기록
+    text_level = font_01.render(f"level: {curr_level}", True, BLUE)
+    text_level_rect = text_level.get_rect(center=(screen_width/2 - 160, screen_height/2 - 80))
+    screen.blit(text_level, text_level_rect)
+    
+# 점수 증가 시키기
+def increase_score(level):
+    global score, stagescore
 
+    score += 10     # 점수 10점 추가
 
+    # STAGE별 증가율을 위한 stair 값 설정
+    if level == 1:
+        stair = stagestair
+    else:
+        stair = (level - 1) * stagestair
+
+    # 스테이지 별 증가율에 따른 STAGE 증가
+    if score >= stagestair + stair:
+        level += 1
+        stagescore = stagescore + stair
+            
 # pos 에 해당하는 버튼 확인
 def check_buttons(pos):
     global start, start_ticks
@@ -100,7 +131,8 @@ def check_number_buttons(pos):
     for button in number_buttons:
         if button.collidepoint(pos):
             if button == number_buttons[0]: # 올바른 숫자 클릭
-                print("Correct")  
+                print("Correct")
+                increase_score(curr_level)
                 del number_buttons[0]        
                 if not hidden:
                     hidden = True # 숫자 숨김 처리      
@@ -119,11 +151,13 @@ def check_number_buttons(pos):
 def game_over():
     global running
     running = False
-    
+    draw_score()
+    '''
     msg = game_font.render(f"Your level is {curr_level}", True, BLUE)
     msg_rect = msg.get_rect(center=(screen_width/2 - 160, screen_height/2 - 60))
 
     screen.blit(msg, msg_rect)
+    '''
 
 # 초기화
 pygame.init()
