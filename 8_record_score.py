@@ -17,15 +17,8 @@ def draw_score():
 def increase_score(level):
     global score, stagescore
 
-    score += 10     # 점수 10점 추가
-
-    # STAGE별 증가율을 위한 stair 값 설정
-    if level == 1:
-        stair = stagestair
+    # LEVEL 별 증가율을 위한 stair 값 설정
+    if level < 4:
+        score += 10         # level 1, 2, 3의 경우 한블록 당 10점 
     else:
-        stair = (level - 1) * stagestair
-
-    # 스테이지 별 증가율에 따른 STAGE 증가
-    if score >= stagestair + stair:
-        level += 1
-        stagescore = stagescore + stair
+        score = score + level + 10      # level이 증가하면 할 수록 한 블록당 점수 높게 측정
