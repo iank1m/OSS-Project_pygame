@@ -85,8 +85,6 @@ def display_game_screen():
  
 # 점수 화면에 기록
 score = 0
-stagescore = 0
-stagestair = 1000
 def draw_score():
     # score 기록
     font_01 = pygame.font.SysFont("FixedSsy", 70, True, False)
@@ -102,19 +100,12 @@ def draw_score():
 def increase_score(level):
     global score, stagescore
 
-    score += 10     # 점수 10점 추가
-
-    # STAGE별 증가율을 위한 stair 값 설정
-    if level == 1:
-        stair = stagestair
+    # LEVEL 별 증가율을 위한 stair 값 설정
+    if level < 4:
+        score += 10         # level 1, 2, 3의 경우 한블록 당 10점 
     else:
-        stair = (level - 1) * stagestair
+        score = score + level + 10      # level이 증가하면 할 수록 한 블록당 점수 높게 측정 
 
-    # 스테이지 별 증가율에 따른 STAGE 증가
-    if score >= stagestair + stair:
-        level += 1
-        stagescore = stagescore + stair
-            
 # pos 에 해당하는 버튼 확인
 def check_buttons(pos):
     global start, start_ticks
@@ -152,12 +143,6 @@ def game_over():
     global running
     running = False
     draw_score()
-    '''
-    msg = game_font.render(f"Your level is {curr_level}", True, BLUE)
-    msg_rect = msg.get_rect(center=(screen_width/2 - 160, screen_height/2 - 60))
-
-    screen.blit(msg, msg_rect)
-    '''
 
 # 초기화
 pygame.init()
