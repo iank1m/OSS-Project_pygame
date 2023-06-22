@@ -143,7 +143,10 @@ def game_over():
     global running
     running = False
     draw_score()
+    pygame.display.update()  # 화면 업데이트
 
+    # 5초 동안 보여줌
+    time.sleep(5)
 # 초기화
 pygame.init()
 screen_width = 1200 # 가로 크기
