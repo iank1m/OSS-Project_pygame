@@ -52,7 +52,7 @@ def shuffle_grid(number_count):
             number_buttons.append(button)
 
     # 배치된 랜덤 숫자 확인
-    print(grid)
+    #print(grid)
 
 # 시작 화면 보여주기
 def display_start_screen():
